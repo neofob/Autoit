@@ -7,6 +7,10 @@ Func OpenInternetExplorer($website)
 	return $oIE1
  EndFunc ;==>OpenInternetExplorer
 
+Func CloseInternetExplorer($obj)
+   _IEQuit($obj)
+EndFunc ;CloseInternetExplorer
+
 Func OpenNotepad()
    $class = 'Notepad'
    If WinExists(StringFormat("[CLASS:%s]",$class)) Then
@@ -31,8 +35,8 @@ Func GetPowerShell()
    Sleep(1000)
 EndFunc ;==>GetPowerShell
 
-Func CloseWindow($class)
-   WinKill(StringFormat("[CLASS:%s]",$class))
+Func CloseWindow($window)
+   WinKill($window)
    Sleep(1000)
 EndFunc ;==>CloseWindow
 
@@ -42,23 +46,20 @@ Func SendPing($url)
    Sleep(5000)
 EndFunc ;==>SendPing
 
-
 Func Automate_WebBrowsing()
    $browser = OpenInternetExplorer('http://www.openscope.co/')
+   Sleep(2000)
+   CloseInternetExplorer($browser)
 EndFunc ;==>AutomateWebBrowser
 
 Func Automate_Notepad()
    OpenNotepad()
-   CloseWindow('Notepad')
+   CloseWindow('[CLASS:Notepad]')
 EndFunc ;Automate_Notepad
 
 Func Automate_Powershell()
    GetPowerShell()
-   ;Do stuff
-   ;Mkfiles
-   ;ping servers
-   ;etc....
-   ;transfer files to share
+   CloseWindow('[CLASS:ConsoleWindowClass]')
 EndFunc ;==>AutomatePowershell
 
 Func main()
