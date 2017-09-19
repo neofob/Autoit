@@ -7,6 +7,18 @@ Func OpenInternetExplorer($website)
 	return $oIE1
  EndFunc ;==>OpenInternetExplorer
 
+Func OpenNotepad()
+   $class = 'Notepad'
+   If WinExists(StringFormat("[CLASS:%s]",$class)) Then
+	  WinActivate(StringFormat("[CLASS:%s]",$class))
+   Else
+	  Run('notepad.exe')
+	  WinWaitActive(StringFormat("[CLASS:%s]",$class))
+	  WinActivate(StringFormat("[CLASS:%s]",$class))
+   EndIf
+   Sleep(1000)
+EndFunc
+
 Func GetPowerShell()
    $title = 'Windows PowerShell'
    If WinExists(StringFormat("[TITLE:%s]",$title)) Then
@@ -16,13 +28,13 @@ Func GetPowerShell()
 	  WinWaitActive(StringFormat("[TITLE:%s]",$title))
 	  WinActivate(StringFormat("[TITLE:%s]",$title))
    EndIf
+   Sleep(1000)
 EndFunc ;==>GetPowerShell
 
-Func ClosePowerShell()
-   $title = 'Windows PowerShell'
-   WinKill(StringFormat("[TITLE:%s]",$title))
+Func CloseWindow($class)
+   WinKill(StringFormat("[CLASS:%s]",$class))
    Sleep(1000)
-EndFunc ;==>ClosePowerShell
+EndFunc ;==>CloseWindow
 
 Func SendPing($url)
    GetPowerShell()
@@ -30,13 +42,29 @@ Func SendPing($url)
    Sleep(5000)
 EndFunc ;==>SendPing
 
+
+Func Automate_WebBrowsing()
+   $browser = OpenInternetExplorer('http://www.openscope.co/')
+EndFunc ;==>AutomateWebBrowser
+
+Func Automate_Notepad()
+   OpenNotepad()
+   CloseWindow('Notepad')
+EndFunc ;Automate_Notepad
+
+Func Automate_Powershell()
+   GetPowerShell()
+   ;Do stuff
+   ;Mkfiles
+   ;ping servers
+   ;etc....
+   ;transfer files to share
+EndFunc ;==>AutomatePowershell
+
 Func main()
-   ;$atc = OpenInternetExplorer('http://www.openscope.co/')
-   ;$browser = OpenInternetExplorer('www.google.com')
-   ;GetCommandPrompt()
-   SendPing('www.google.com')
-   ClosePowerShell()
-   SendPing('www.facebook.com')
+   Automate_Powershell()
+   Automate_WebBrowsing()
+   Automate_Notepad()
 EndFunc ;==>main
 
 
