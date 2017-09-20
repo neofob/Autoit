@@ -45,6 +45,8 @@ Func main()
 	; Read the fist line of the file using the handle returned by FileOpen.
 	$password = FileReadLine($hFileOpen, 2)
 	$min_time = FileReadLine($hFileOpen, 3)
+	$auth_delay = FileReadLine($hFileOpen, 3)
+	$auth_delay2 = FileReadLine($hFileOpen, 3)
 	$max_time = FileReadLine($hFileOpen, 4)
 
 	$CMD=Run("C:\WINDOWS\system32\cmd.exe")
@@ -59,9 +61,9 @@ Func main()
 
 	$command = StringFormat('plink -ssh %s{ENTER}',$host)
 	Send($command)
-	Sleep ( 100 )
+	Sleep ( $auth_delay )
 	Send(StringFormat('%s{ENTER}',$password))
-	Sleep ( 100 )
+	Sleep ( $auth_delay2 )
 
 	While ProcessExists($CMD)
 		$choice = Random(0, 4, 1)
