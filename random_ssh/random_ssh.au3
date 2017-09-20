@@ -44,6 +44,8 @@ Func main()
 	$host = FileReadLine($hFileOpen, 1)
 	; Read the fist line of the file using the handle returned by FileOpen.
 	$password = FileReadLine($hFileOpen, 2)
+	$min_time = FileReadLine($hFileOpen, 3)
+	$max_time = FileReadLine($hFileOpen, 4)
 
 	$CMD=Run("C:\WINDOWS\system32\cmd.exe")
 	ProcessWait($CMD)
@@ -83,7 +85,7 @@ Func main()
 				Send($command)
 		EndSwitch
 
-		Sleep(Random(100, 240))
+		Sleep(Random($min_time, $max_time))
 
 		Sleep (1000)
 
