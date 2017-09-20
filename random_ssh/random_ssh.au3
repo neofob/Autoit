@@ -1,6 +1,9 @@
 #include <MsgBoxConstants.au3>
 #include <Date.au3>
 #include <File.au3>
+; Make a file in the root repo directory with the following:
+; user@ssh-hostname.com
+; password_for_ssh
 
 Func MessageBox($message, $delay=5, $title="An important message")
 	MsgBox($MB_SYSTEMMODAL, $title, $message)
@@ -8,6 +11,12 @@ EndFunc
 
 Func RandWord()
 	$File = FileReadToArray("../google-10000-english-usa.txt")
+	$random = $File[Random(0, UBound($File) - 1, 1)]
+	return $random
+EndFunc
+
+Func RandomLinuxCommands()
+	$File = FileReadToArray("../random-linux-commands")
 	$random = $File[Random(0, UBound($File) - 1, 1)]
 	return $random
 EndFunc
@@ -53,7 +62,7 @@ Func main()
 	Sleep ( 100 )
 
 	While ProcessExists($CMD)
-		$choice = Random(0, 2, 1)
+		$choice = Random(0, 4, 1)
 		WinActivate("cmd.exe")
 		Switch $choice
 			Case 0
@@ -66,7 +75,10 @@ Func main()
 			Case 2
 				$command = "cd ~{ENTER}"
 				Send($command)
-			Case Else
+			Case 3
+				$command = StringFormat('%s{ENTER}', RandomLinuxCommands())
+				Send($command)
+			Case 4
 				$command = StringFormat('echo "time is %s choice was %s"{ENTER}', _NowTime(), $choice)
 				Send($command)
 		EndSwitch
