@@ -1,0 +1,6 @@
+cowsay "HELLO"
+cat /etc/lsb-release
+lspci
+lscpu
+cat /etc/passwd
+echo "SPAGHETTI" >> ~/spaghetti_log.log
