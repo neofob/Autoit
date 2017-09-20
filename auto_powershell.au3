@@ -17,5 +17,5 @@ Func runCommand($handle,$cmd)
    WinActivate($handle)
    Sleep(2000)
    Send(StringFormat("%s{ENTER}",$cmd))
-   Sleep(5000)
+   Sleep(2000)
 EndFunc ;==>runCommand

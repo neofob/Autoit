@@ -31,11 +31,11 @@ Func get_flights($request_length)
 
    ;$airlines = file_to_array("airline_codes.txt")
    ;$aircraft = file_to_array("aircraft_types.txt")
-   
-   $airlines[4] = ["DAL", "UPS", "AAL", "SKY"]
-   $aircraft[4] = ["B757", "A320", "B737", "B787"]
-   
-   
+
+   Local $airlines[4] = ["DAL", "UPS", "AAL", "SKY"]
+   Local $aircraft[4] = ["B757", "A320", "B737", "B787"]
+
+
    $o = StringFormat("Found %s airline codes", UBound($airlines))
    ConsoleWrite($o & @CRLF)
 
@@ -146,13 +146,15 @@ Func SimulateAtcMonitoring()
    ; open atc
    $atc = OpenInternetExplorer('http://www.openscope.co/')
 
-   InteractWithAtc()
+   ;InteractWithAtc()
 
    $result_file = GenerateFlightData($userid)
 
    ;MsgBox($MB_SYSTEMMODAL, "Analyst file result", "NOW MOVE THIS FILE TO SHARED SPACE FOR OTHERS TO VIEW: " & $result_file)
 
    CloseInternetExplorer($atc)
+
+   Return $result_file
 
 EndFunc
 
