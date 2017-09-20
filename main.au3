@@ -2,8 +2,8 @@
 #include <IE.au3>
 #include <MsgBoxConstants.au3>
 #include <aviationdata.au3>
-#include <x_Chrome.au3>
-#include <aut0_powershell.au3>
+#include <Browser_Helper.au3>
+#include <auto_powershell.au3>
 
 ; Internet Explorer Interactions
 
