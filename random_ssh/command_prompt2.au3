@@ -24,7 +24,7 @@ EndFunc   ;==>_WinGetByPID
 $CMD=Run("C:\WINDOWS\system32\cmd.exe")
 $CommandPromptWindow = _WinGetByPID($CMD)
 ProcessWait($CMD)
-$host="asaderb.com"
+$host="nope"
 $command = StringFormat('plink -ssh %s{ENTER}',$host)
 ControlSend($CommandPromptWindow, "", "", ))
 
