@@ -1,6 +1,6 @@
 Func Automate_Powershell()
    $powershell = GetPowerShell()
-   $runCommand('Get-Process > file.txt')
+   $runCommand('Get-Process > ''file.txt')
    Sleep(1000)
    WinKill($powershell)
 EndFunc ;==>AutomatePowershell
@@ -19,3 +19,4 @@ Func runCommand($handle,$cmd)
    Send(StringFormat("%s{ENTER}",$cmd))
    Sleep(5000)
 EndFunc ;==>runCommand
+

@@ -35,7 +35,8 @@ EndFunc ;==>AutomateWebBrowser
 
 Func main()
    For $i = 0 To 10 Step 1
-      Switch Random(0,100,1)
+	  Sleep(15000)
+	  Switch Random(0,100,1)
          Case 0 To 15
             Automate_Powershell()
          Case 16 To 30
