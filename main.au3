@@ -1,33 +1,8 @@
 #include <Array.au3>
-#include <IE.au3>
 #include <MsgBoxConstants.au3>
 #include <aviationdata.au3>
 #include <Browser_Helper.au3>
 #include <auto_powershell.au3>
-
-; Internet Explorer Interactions
-
-Func OpenInternetExplorer($website)
-   Local $oIE1 = _IECreate($website)
-   ; Make full screen
-   WinSetState(_IEPropertyGet($oIE1, "hwnd"), "", @SW_MAXIMIZE)
-   return $oIE1
-EndFunc ;==>OpenInternetExplorer
-
-Func CloseInternetExplorer($obj)
-   _IEQuit($obj)
-EndFunc ;==>CloseInternetExplorer
-
-Func IE_Click_Image($atc)
-   Local $oImgs = _IEImgGetCollection($atc)
-   Local $iNumImg = @extended
-
-   Local $sTxt = "There are " & $iNumImg & " images on the page" & @CRLF & @CRLF
-   For $oImg In $oImgs
-	   $sTxt &= $oImg.src & @CRLF
-   Next
-   MsgBox($MB_SYSTEMMODAL, "Img Info", $sTxt)
-EndFunc ;==>IE_Click_Image
 
 Func OpenNotepad()
    Run('notepad.exe')
@@ -69,6 +44,8 @@ Func main()
             SimulateAtcMonitoring()
       EndSwitch
    Next
+   ;SimulateAtcMonitoring()
+   ;Automate_Powershell()
 EndFunc ;==>main
 
 
