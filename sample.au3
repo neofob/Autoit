@@ -2,6 +2,8 @@
 #include <IE.au3>
 
 
+; Internet Explorer Interactions
+
 Func OpenInternetExplorer($website)
 	Local $oIE1 = _IECreate($website)
 	return $oIE1
@@ -11,7 +13,7 @@ Func CloseInternetExplorer($obj)
    _IEQuit($obj)
 EndFunc ;==>CloseInternetExplorer
 
-Func Click_Image($atc)
+Func IE_Click_Image($atc)
    Local $oImgs = _IEImgGetCollection($atc)
    Local $iNumImg = @extended
 
@@ -20,24 +22,37 @@ Func Click_Image($atc)
 	   $sTxt &= $oImg.src & @CRLF
    Next
    MsgBox($MB_SYSTEMMODAL, "Img Info", $sTxt)
-EndFunc ;==>Click_Image
+EndFunc ;==>IE_Click_Image
 
-Func Use_IFrame($atc)
-   Local $oFrames = _IEFrameGetCollection($atc)
-   Local $iNumFrames = @extended
-   Local $sTxt = $iNumFrames & " frames found" & @CRLF & @CRLF
-   Local $oFrame = 0
-   For $i = 0 To ($iNumFrames - 1)
-	   $oFrame = _IEFrameGetCollection($oIE, $i)
-	   $sTxt &= _IEPropertyGet($oFrame, "innertext") & @CRLF
-   Next
-   MsgBox($MB_SYSTEMMODAL, "Frames Info", $sTxt)
-EndFunc ;==>Use_IFrame
-
-Func atc_atomation($atc)
+Func IE_atomation($atc)
    ;Click_Image($atc)
    ;Use_IFrame($atc)
-EndFunc ;==>atc_atomation
+EndFunc ;==>IE_atomation
+
+; Chrome Browser Interactions, I am aware of a Chrome.au3 , but that requires an extention which i am asuming isn't installed on the hosts.
+
+Func Chrome_Start()
+   $Chrome_Location = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
+   Run($Chrome_Location)
+   WinWaitActive("")
+   $browser = WinGetHandle("")
+   return $browser
+EndFunc ;==>Chrome_start
+
+Func Chrome_Navigate($browser,$url)
+   Chrome_getFocus($browser)
+EndFunc ;==>Chrome_Navigate
+
+Func Chrome_getFocus($browser)
+   WinActivate($browser)
+EndFunc ;Chrome_getFocus
+
+Func Chrome_End($browser)
+
+EndFunc ;==>Chrome_end
+
+
+
 
 
 Func OpenNotepad()
@@ -112,9 +127,11 @@ Func Automate_Powershell()
 EndFunc ;==>AutomatePowershell
 
 Func main()
-
+   $handle = Chrome_Start()
+   OpenInternetExplorer('www.google.com')
+   Chrome_getFocus($handle)
    ;Automate_Powershell()
-   Automate_WebBrowsing()
+   ;Automate_WebBrowsing()
    ;Automate_Notepad()
 EndFunc ;==>main
 
