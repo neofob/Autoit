@@ -66,9 +66,9 @@ Func main()
        ;     SimulateAtcMonitoring()
       ;EndSwitch
    ;Next
-   $file_to_Send = SimulateAtcMonitoring()
-   Automate_FileMove($file_to_send)
-   ;Automate_Powershell()
+   ;$file_to_Send = SimulateAtcMonitoring()
+   ;Automate_FileMove($file_to_send)
+   Automate_Powershell()
 EndFunc ;==>main
 
 
