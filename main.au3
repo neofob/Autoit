@@ -33,19 +33,41 @@ Func Automate_WebBrowsing()
    Chrome_End($chrome_general)
 EndFunc ;==>AutomateWebBrowser
 
+Func Automate_FileMove($file_to_send)
+
+   $ps_handle = GetPowerShell()
+
+   ; Get the location on disk for the output file for ATC
+   $cmd = StringFormat("$fullfileloc=(Get-ChildItem -Path C:\Users -Include *%s* -File -Recurse -ErrorAction SilentlyContinue).FullName", $file_to_send)
+   runCommand($ps_handle, $cmd)
+   runCommand($ps_handle, "$test='tmp'")
+
+   ; Copy the file to whatever location
+   $cmd = "Copy-Item -Path $fullfileloc -Destination $fullfileloc$test"
+   runCommand($ps_handle, $cmd)
+
+   ; Spit out the new file just to ensure that it is there
+   $cmd = "cat $fullfileloc$test"
+   runCommand($ps_handle, $cmd)
+
+   Sleep(5000)
+   ;WinKill($ps_handle)
+
+EndFunc
+
 Func main()
-   For $i = 0 To 10 Step 1
-	  Sleep(15000)
-	  Switch Random(0,100,1)
-         Case 0 To 15
-            Automate_Powershell()
-         Case 16 To 30
-            Automate_WebBrowsing()
-         Case 31 To 100
-            SimulateAtcMonitoring()
-      EndSwitch
-   Next
-   ;SimulateAtcMonitoring()
+   ;For $i = 0 To 10 Step 1
+      ;Switch Random(0,100,1)
+         ;Case 0 To 15
+          ;  Automate_Powershell()
+         ;Case 16 To 30
+         ;   Automate_WebBrowsing()
+        ; Case 31 To 100
+       ;     SimulateAtcMonitoring()
+      ;EndSwitch
+   ;Next
+   $file_to_Send = SimulateAtcMonitoring()
+   Automate_FileMove($file_to_send)
    ;Automate_Powershell()
 EndFunc ;==>main
 
