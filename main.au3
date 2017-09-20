@@ -1,14 +1,17 @@
 #include <Array.au3>
 #include <IE.au3>
 #include <MsgBoxConstants.au3>
-
+#include <aviationdata.au3>
+#include <x_Chrome.au3>
 
 ; Internet Explorer Interactions
 
 Func OpenInternetExplorer($website)
-	Local $oIE1 = _IECreate($website)
-	return $oIE1
- EndFunc ;==>OpenInternetExplorer
+   Local $oIE1 = _IECreate($website)
+   ; Make full screen
+   WinSetState(_IEPropertyGet($oIE1, "hwnd"), "", @SW_MAXIMIZE)
+   return $oIE1
+EndFunc ;==>OpenInternetExplorer
 
 Func CloseInternetExplorer($obj)
    _IEQuit($obj)
@@ -25,32 +28,6 @@ Func IE_Click_Image($atc)
    MsgBox($MB_SYSTEMMODAL, "Img Info", $sTxt)
 EndFunc ;==>IE_Click_Image
 
-; Chrome Browser Interactions, I am aware of a Chrome.au3 , but that requires an extention which i am asuming isn't installed on the hosts.
-Func Chrome_Start()
-   $Chrome_Location = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
-   Run($Chrome_Location)
-   WinWaitActive("")
-   $handle = WinGetHandle("")
-   Sleep(2000)
-   return $handle
-EndFunc ;==>Chrome_start
-
-Func Chrome_Navigate($handle,$url)
-   Chrome_getFocus($handle)
-   Sleep(1000)
-   Send(StringFormat('!d^a%s{ENTER}', $url))
-   Sleep(3000)
-EndFunc ;==>Chrome_Navigate
-
-Func Chrome_getFocus($handle)
-   WinActivate($handle)
-   Sleep(2000)
-EndFunc ;Chrome_getFocus
-
-Func Chrome_End($handle)
-   WinKill($handle)
-EndFunc ;==>Chrome_end
-
 Func OpenNotepad()
    Run('notepad.exe')
    WinWaitActive("")
@@ -58,19 +35,6 @@ Func OpenNotepad()
    Sleep(1000)
    return $handle
 EndFunc
-
-Func GetPowerShell()
-   Run('powershell.exe')
-   WinWaitActive("")
-   $handle = WinGetHandle("")
-   Sleep(1000)
-   return $handle
-EndFunc ;==>GetPowerShell
-
-Func CloseWindow($handle)
-   WinKill($handle)
-   Sleep(1000)
-EndFunc ;==>CloseWindow
 
 Func Automate_WebBrowsing()
    Local $ie_general = OpenInternetExplorer('www.google.com')
@@ -93,27 +57,15 @@ Func Automate_WebBrowsing()
    Chrome_End($chrome_general)
 EndFunc ;==>AutomateWebBrowser
 
-Func Automate_Notepad()
-   $notepad = OpenNotepad()
-   Sleep(1000)
-   CloseWindow($notepad)
-EndFunc ;Automate_Notepad
-
-Func Automate_Powershell()
-   $powershell = GetPowerShell()
-   Sleep(1000)
-   CloseWindow($powershell)
-EndFunc ;==>AutomatePowershell
-
 Func main()
    For $i = 0 To 10 Step 1
-      Switch Random(0,2,1)
-         Case 0
+      Switch Random(0,100,1)
+         Case 0 To 15
             Automate_Powershell()
-         Case 1
+         Case 16 To 30
             Automate_WebBrowsing()
-         Case 2
-            Automate_Notepad()
+         Case 31 To 100
+            SimulateAtcMonitoring()
       EndSwitch
    Next
 EndFunc ;==>main

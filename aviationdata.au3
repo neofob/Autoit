@@ -4,18 +4,6 @@
 #include <IE.au3>
 #include <Date.au3>
 
-Func OpenInternetExplorer($website)
-   Local $oIE1 = _IECreate($website)
-
-   ; Make full screen
-   WinSetState(_IEPropertyGet($oIE1, "hwnd"), "", @SW_MAXIMIZE)
-
-   return $oIE1
-EndFunc ;==>OpenInternetExplorer
-
-Func CloseInternetExplorer($site_handle)
-   _IEQuit($site_handle)
-EndFunc
 
 Func file_to_array($filePath)
    ; File to read
@@ -158,7 +146,7 @@ Func SimulateAtcMonitoring()
 
    $result_file = GenerateFlightData($userid)
 
-   MsgBox($MB_SYSTEMMODAL, "Analyst file result", "NOW MOVE THIS FILE TO SHARED SPACE FOR OTHERS TO VIEW: " & $result_file)
+   ;MsgBox($MB_SYSTEMMODAL, "Analyst file result", "NOW MOVE THIS FILE TO SHARED SPACE FOR OTHERS TO VIEW: " & $result_file)
 
    CloseInternetExplorer($atc)
 
@@ -177,13 +165,3 @@ Func GenerateFileTimestamp()
    Return $sDate_New & "_" & $sTime_New
 
 EndFunc
-
-Func main()
-
-SimulateAtcMonitoring()
-
-
-EndFunc ;==>main
-
-
-main()
