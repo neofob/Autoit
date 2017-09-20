@@ -3,6 +3,7 @@
 #include <MsgBoxConstants.au3>
 #include <aviationdata.au3>
 #include <x_Chrome.au3>
+#include <aut0_powershell.au3>
 
 ; Internet Explorer Interactions
 
