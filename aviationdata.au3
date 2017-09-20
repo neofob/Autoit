@@ -29,9 +29,13 @@ EndFunc
 
 Func get_flights($request_length)
 
-   $airlines = file_to_array("airline_codes.txt")
-   $aircraft = file_to_array("aircraft_types.txt")
-
+   ;$airlines = file_to_array("airline_codes.txt")
+   ;$aircraft = file_to_array("aircraft_types.txt")
+   
+   $airlines[4] = ["DAL", "UPS", "AAL", "SKY"]
+   $aircraft[4] = ["B757", "A320", "B737", "B787"]
+   
+   
    $o = StringFormat("Found %s airline codes", UBound($airlines))
    ConsoleWrite($o & @CRLF)
 
